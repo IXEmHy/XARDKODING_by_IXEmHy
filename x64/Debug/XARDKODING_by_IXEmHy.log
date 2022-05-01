@@ -1,0 +1,22 @@
+﻿  main.cpp
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\myalgorithm.h(181,56): warning C4244: return: преобразование "__int64" в "double_t", возможна потеря данных
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\myalgorithm.h(186,11): warning C4244: return: преобразование "size_t" в "double_t", возможна потеря данных
+  SimpleTimer.cpp
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00CF", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00F0", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00EE", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00F8", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00EB", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00E2", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00E5", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00EC", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00ED", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,15): warning C4566: символ, представленный универсальным именем символа "\u00E8", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,71): warning C4566: символ, представленный универсальным именем символа "\u00F1", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,71): warning C4566: символ, представленный универсальным именем символа "\u00E5", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,71): warning C4566: символ, представленный универсальным именем символа "\u00EA", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,71): warning C4566: символ, представленный универсальным именем символа "\u00F3", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,71): warning C4566: символ, представленный универсальным именем символа "\u00ED", невозможно представить в текущей кодовой странице (1251)
+C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\SimpleTimer.cpp(13,71): warning C4566: символ, представленный универсальным именем символа "\u00E4", невозможно представить в текущей кодовой странице (1251)
+  Создание кода...
+  XARDKODING_by_IXEmHy.vcxproj -> C:\Users\№9\source\repos\XARDKODING_by_IXEmHy\x64\Debug\XARDKODING_by_IXEmHy.exe
