@@ -10,5 +10,5 @@ SimpleTimer::~SimpleTimer()
 {
 	end = std::chrono::high_resolution_clock::now();
 	duraction = end - start;
-	std::cout << "Ïðîøëî âðåìåíè: " << duraction.count() << " ñåêóíä\n\n";
+	std::cout << "Времени прошло: " << duraction.count() << " секунд\n\n";
 }

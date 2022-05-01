@@ -141,7 +141,7 @@ int32_t main()
 	srand(int32_t(time(0))); //Для рандомных чисел.
 
 	int arr[99]{};
-	cout << typeid(arr).raw_name() << endl;
+	//cout << typeid(arr).raw_name() << endl;
 
 	return 0;
 }
