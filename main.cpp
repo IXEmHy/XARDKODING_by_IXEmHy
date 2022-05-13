@@ -1,11 +1,11 @@
 #include "myalgorithm.h"
 #include <algorithm>
 #include <Windows.h>
-#include <ctime>
+//#include <ctime>
+#include <random>
 //#include "Header.h"
 
 //#pragma comment(linker,"/STACK:4194304")
-
 
 //  fuuny  //
 class N
@@ -101,8 +101,7 @@ public:
 	A()
 	{
 		std::cout << "Constructors [Class A]: " << this << tab <<
-			++getSize() << std::endl;
-		a = 50;
+		++getSize() << std::endl;
 	}
 	//virtual void foo() const override {};
 	virtual void gun() const override
@@ -133,15 +132,23 @@ void foo(A* a)
 
 int32_t main()
 {
-	timer key;
+	/*timer key;
+	Рандом диапозон:
+	std::mt19937 gen(std::random_device{}());
+	std::uniform_int_distribution<int> d(-10, 10);
+	int a = d(gen);
+
+	Второй вариант (без диапозона)
+	std::random_device rd;  // Для рандомных чисел.
+	std::mt19937 mersenne(rd());*/
 
 	using std::cout; using std::cin; using std::endl; //Использование cout, endl, cin
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	srand(int32_t(time(0))); //Для рандомных чисел.
 
-	int arr[99]{};
-	//cout << typeid(arr).raw_name() << endl;
+	Matrix<int> mat(3, 3);
+	mat.arrgs(5, 3, 4);
+	mat.getMat();
 
 	return 0;
 }
