@@ -1,5 +1,7 @@
 #pragma once
 // P.S. Комментарии пока что будут на русском -_- //
+#ifndef ON
+#define ON
 
 #include <iostream>
 #include <cmath>
@@ -13,7 +15,6 @@ typedef SimpleTimer timer;
 typedef std::string string;
 const string tab = "    ";
 
-#define RS std::to_string
 #define PI 3.141592653589793
 #define RADIAN 180/PI
 #define DEGREE PI/180
@@ -387,9 +388,9 @@ size_t degree_two(const size_t& num, size_t res = 0)
 template<class T>
 class VecEno                                                      // класс VecEno
 {
-	size_t size, capacity;                                        // размер и капасити вектора
+	size_t       size, _capacity;                                 // размер и капасити вектора
 	const size_t MAX_SIZE = 65536 / sizeof(T);                    // максимальный размер для вектора (максимально можно создать объект размер которого будет 65536 байт)
-	T* array;                                                     // сам вектор
+	T*           array;                                           // сам массив
 public:
 	class iterator                                                // класс iterator
 	{ 
@@ -410,63 +411,58 @@ public:
 		bool operator!=(const iterator& it) { return el != it.el; }
 	};
 
-	VecEno() : size(1), capacity(2) { array = new T[capacity]; }  // конструктор по умолчанию
+	VecEno() : size(1), _capacity(2) { array = new T[_capacity]; }  // конструктор по умолчанию
 
-	VecEno(const size_t& size, const T& arrgs = {})               // конструктор с заданием размера и заполнителем вектора
-	: size(size), capacity(degree(2, degree_two(size))) {
-		array = size > MAX_SIZE ? new T[MAX_SIZE] : new T[capacity];
-		for (size_t i = 0; i < size; i++)
-			array[i] = arrgs;
+	VecEno(const std::initializer_list<T>& _init)                   // конструктор с заданием uniform-инициализации
+	: size(_init.size()), _capacity(degree(2, degree_two(size))) {
+		array = size >= MAX_SIZE ? new T[MAX_SIZE] : new T[_capacity];
+		uint32_t i = 0;
+		for (auto it = _init.begin(), end = _init.end(); it != end; it++, i++)
+			array[i] = *it;
 	}
 	VecEno(const VecEno<T>& vec)                                  // конструктор копирования
-	: size(vec.size), capacity(degree(2, degree_two(vec.size))) { 
-		array = size > MAX_SIZE ? new T[MAX_SIZE]{} : new T[capacity]{};
+	: size(vec.size), _capacity(degree(2, degree_two(size))) { 
+		array = new T[_capacity];
 		for (size_t i = 0; i < size; i++)
 			array[i] = vec[i];
 	}
 	~VecEno() { delete[] array; }                                 // деструктор
 
 	const size_t getSize() const { return size; }                 // геттер для size
-	const size_t getCapacity() const { return capacity; }         // геттер для capacity
+	const size_t getCapacity() const { return _capacity; }         // геттер для _capacity
 	const size_t getMAX_SIZE() const { return MAX_SIZE; }         // геттер для MAX_SIZE
 	iterator begin() const { return iterator(array); }            // геттер для begin
 	iterator end() const { return iterator(array + size); }       // геттер для end
 
 	void reverse() {
 		for (size_t i = 0; i < size / 2; i++)
-		{
-			T temp = (*this)[i];
-			(*this)[i] = (*this)[size - 1 - i];
-			(*this)[size - 1 - i] = temp;
-		}
+			swap((*this)[i], (*this)[size - 1 - i]);
 	}
 
-	void setCapacity(const size_t& capacity) {                    // сеттер для capacity
+	void setCapacity(const size_t& _capacity) {                   // сеттер для _capacity
 		T* temp_ptr = array;
-		size_t tempCap = this->capacity;
-		this->capacity = capacity;
-		array = new T[capacity];
+		size_t tempCap = this->_capacity;
+		this->_capacity = _capacity;
+		array = new T[_capacity];
 		for (size_t i = 0; i < tempCap; i++)
 			array[i] = temp_ptr[i];
 		delete[] temp_ptr;
 	}
 
-	void append(const T& el) {                                    // добавить элемент в конец
-		if (size < capacity) {
+	void push_back(const T& el) {                                 // добавить элемент в конец
+		if (size < _capacity) {
 			array[size] = el;
 			++size;
 		}
 		else {
 			setCapacity(degree(2, degree_two(size)));
-			append(el);
+			push_back(el);
 		}
 	}
-	void pop_back() {
-		size--;
-	}
+	void pop_back() { size--; }
 
 
-	T& at(const size_t& ind) { return ind < size ? array[ind]     // обратится к элементу по индексу (безопасно)
+	T& at(const size_t& ind) { return size > ind ? array[ind]     // обратится к элементу по индексу (безопасно)
 		: throw "Выход за пределы вектора . . .\n"; } 
 	T& operator[](const size_t& ind) { return array[ind]; }       // обратится к элементу по индексу
 
@@ -481,11 +477,11 @@ public:
 
 
 
-double rad_deg(const double& rad) { return rad * RADIAN; }         // перевод радиан в грудусы
-double deg_rad(const double& deg) { return deg * DEGREE; }         // перевод градусы в радианы
+double rad_deg(const double& rad) { return rad * RADIAN; }        // перевод радиан в грудусы
+double deg_rad(const double& deg) { return deg * DEGREE; }        // перевод градусы в радианы
 
 // reverse //
-template<typename T>                                               // реверс массива встроенного типа
+template<class T>                                                 // реверс массива встроенного типа
 void reverse(T& arr) {
 	for (size_t i = 0, size = sizeof(arr) / sizeof(arr[0]); i < size / 2; i++)
 		swap(arr[i], arr[size - 1 - i]);
@@ -494,9 +490,20 @@ void reverse(T& arr) {
 // SORT //
 // choice sort //
 template<typename T>
-void sort(T& arr, bool smallset_to_largest = true) {                                         // сортировка массива встроенного типа
-	for (size_t i = 0, g = 0, size = sizeof(arr) / sizeof(arr[0]); i < size - 1; i++)
+void sort(T& arr, bool smallset_to_largest = true) {              // сортировка массива встроенного типа
+	for (size_t i = 0, g = 0, size = sizeof(arr) / sizeof(arr[0]); i != size - 1; i++)
 		for (g = i + 1; g < size; g++)
 			if (arr[i] != arr[g] && arr[i] > arr[g] == smallset_to_largest)
 				swap(arr[i], arr[g]);
 }
+
+// min element //
+template<typename T>
+auto min_max(T& arr, bool _min = true) {                          // сортировка массива встроенного типа
+	auto min_max = arr[0];
+	for (size_t i = 1, size = sizeof(arr) / sizeof(arr[0]); i != size; i++)
+		if (arr[i] != min_max && min_max > arr[i] == _min)
+			min_max = arr[i];
+	return min_max;
+}
+#endif
