@@ -12,8 +12,7 @@
 #include "SimpleTimer.h"
 
 typedef SimpleTimer timer;
-typedef std::string string;
-const string tab = "    ";
+const std::string tab = "    ";
 
 #define PI 3.141592653589793
 #define RADIAN 180/PI
@@ -224,49 +223,6 @@ const uint64_t binary_to_decimal(const std::string& str)          // Ïåğåâîä ÷èñ
 		res = res * 2 + str.at(i) - '0';
 	return res;
 }
-
-// . . . TODO? . . .   //
-//       SORT         //
-/* template <typename T>
-void mySort(const T arr[], const T * end)
-{
-	std::sort(arr, end, [](int a, int b)
-	{
-		return a > b;
-	});
-	const size_t size = (end - arr) / sizeof(T);
-	T temp[size];
-	for (int i = 0, g = 10 - 1, c = 0; i < (end - arr) / sizeof(T); i++)
-		if (i % 2 == 0) {
-			temp[c] = arr[i];
-			c++;
-		}
-		else {
-			temp[g] = arr[i];
-			g--;
-		}
-	for (auto i = 0; i < (end - arr) / sizeof(T); i++)
-		arr[i] = temp[i];
-}
-Original version:
-int arr[10], temp[10], i = 0, g = 0, c = 0;
-	for (auto &el : arr)
-		el = rand() % 10 + 1;
-	for (auto &el : arr)
-		cout << el << endl;
-	/*for (i = 0, g = 10 - 1; i < 10; i++)
-		if (i % 2 == 0) {
-			temp[c] = arr[i];
-			c++;
-		}
-		else {
-			temp[g] = arr[i];
-			g--;
-		}
-	cout << endl;
-	for (const auto &el : temp)
-		cout << el << endl;
-*/
 
 ///  matrix  ///
 /// class Matrix ///
@@ -505,5 +461,22 @@ auto min_max(T& arr, bool _min = true) {                          // ñîğòèğîâêà 
 		if (arr[i] != min_max && min_max > arr[i] == _min)
 			min_max = arr[i];
 	return min_max;
+}
+
+const char* layout(const std::string& st) {
+	return st.find('q') != st.npos && st.find('Q') != st.npos ? "qwerty" : "éöóêåí";
+}
+
+std::string translit(const std::string& str, const int& from, const int& to) {
+	std::string layout[2]
+	{ "éöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáşÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÜÁŞ",
+	  "qwertyuiop[]asdfghjkl;'zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>" },
+		res = str;
+
+	for (size_t i = 0, find = -1; i < str.size(); i++) {
+		find = layout[from].find(str[i]);
+		res[i] = find != str.npos ? layout[to][find] : res[i];
+	}
+	return res;
 }
 #endif
