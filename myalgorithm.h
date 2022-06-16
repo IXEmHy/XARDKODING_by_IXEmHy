@@ -93,7 +93,7 @@ void swap(T& a, T& b) {
 ///  operators  ///
 std::string operator*(const std::string& str,                     // Перегруженный бинарный оператор *, 
 	const uint32_t& num)                                          // позволяет продублировать строку указанное кол - во раз
-{ return num ? str + operator*(str, num - 1) : ""; }                 
+{ return num > 0 ? str + operator*(str, num - 1) : ""; }                 
 
 std::string operator*(const uint32_t& num,                        // Перегруженный бинарный оператор *, 
 	const std::string& str)										  // позволяет продублировать строку указанное кол-во раз
@@ -116,11 +116,11 @@ bool operator==(const std::string& str, const std::string& str2)  // Перегруженн
 { return str.size() == str2.size() && str.find(str2) != str.npos; }    
 
 bool operator!=(const std::string& str, const std::string& str2)  // Перегруженный бинарный оператор !=, позволяет проверить на неравенство две строки между собой
-{ return str.size() != str2.size() || str.find(str2) == str.npos; }  
+{ return !operator==(str, str2); }
 
 // function //
 size_t strlen_t(const char* str, size_t len = 0)                  // Функция позволяет узнать размер строки (в учет размера строки не входит терминирующий нуль)
-{ return str[len] ? strlen_t(str, len + 1) : len; }    
+{ return str[len] != '\0' ? strlen_t(str, len + 1) : len; }
 
 
 /// math ///
@@ -128,8 +128,8 @@ size_t strlen_t(const char* str, size_t len = 0)                  // Функция поз
 // Следующий функции позволяют работать с арифметической прогрессии //
 std::vector<double_t> aritho(const double_t& a1,                  // Функция позволяет создать вектор арифметической прогрессии
 	const double_t& d, 
-	const uint32_t& size, 
-	std::vector<double_t> v) {    
+	const uint32_t& size = 2, 
+	std::vector<double_t> v = {}) {
 	v.at(0) = a1; v.resize(size);
 	for (auto i = v.begin() + 1; i < v.end(); i++)
 		*i = *(i - 1) + d;
@@ -178,8 +178,8 @@ void timer_with_chrono()                                          // Таймер (фиг
 	{
 		timer a;
 		std::cout << "Passed time: "
-			<< "sec: " << sec << string(" ") * (5 - ranks(sec))
-			<< "min: " << min << string(" ") * (5 - ranks(min)) 
+			<< "sec: " << sec << std::string(" ") * (5 - ranks(sec))
+			<< "min: " << min << std::string(" ") * (5 - ranks(min)) 
 			<< "hour: " << hour << '\r';
 		thread::sleep_for(chrono::milliseconds(999));
 
@@ -205,7 +205,7 @@ std::string decimal_to_binary(const uint64_t& val)                // Перевод чис
 	std::string res;
 
 	do {
-		res += std::to_string(temp % 2);
+		res += temp % 2 + '0';
 		temp /= 2;
 	} while (temp > 0);
 
@@ -324,7 +324,7 @@ public:
 		for (uint32_t i = 0; i < matrix.m; i++) {
 			for (uint32_t g = 0; g < matrix.n; g++) {
 				std::cout << "Enter element:\n" 
-					<< i << " -  Vertically\n" 
+					<< i << " - Vertically\n" 
 					<< g << " - Horizontally\n";
 				std::cin >> matrix[i][g];
 			}
@@ -333,12 +333,11 @@ public:
 		std::cout.flush();
 		return os;
 	}
-	//  class Matrix end  //
 };
 
 
 size_t degree_two(const size_t& num, size_t res = 0)   
-{ return num ? degree_two(num / 2, res + 1) : res; }              // Функция для вычесления, в какой степени двойка, будет больше чем переданный аргумент
+{ return num > 0 ? degree_two(num / 2, res + 1) : res; }          // Функция для вычесления, в какой степени двойка, будет больше чем переданный аргумент
 
 
 template<class T>
@@ -369,7 +368,7 @@ public:
 
 	VecEno() : size(1), _capacity(2) { array = new T[_capacity]; }  // конструктор по умолчанию
 
-	VecEno(const std::initializer_list<T>& _init)                   // конструктор с заданием uniform-инициализации
+	VecEno(const std::initializer_list<T>& _init)                 // конструктор с заданием uniform-инициализации
 	: size(_init.size()), _capacity(degree(2, degree_two(size))) {
 		array = size >= MAX_SIZE ? new T[MAX_SIZE] : new T[_capacity];
 		uint32_t i = 0;
@@ -385,7 +384,7 @@ public:
 	~VecEno() { delete[] array; }                                 // деструктор
 
 	const size_t getSize() const { return size; }                 // геттер для size
-	const size_t getCapacity() const { return _capacity; }         // геттер для _capacity
+	const size_t getCapacity() const { return _capacity; }        // геттер для _capacity
 	const size_t getMAX_SIZE() const { return MAX_SIZE; }         // геттер для MAX_SIZE
 	iterator begin() const { return iterator(array); }            // геттер для begin
 	iterator end() const { return iterator(array + size); }       // геттер для end

@@ -113,7 +113,8 @@ int32_t main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int arr[]{ 7,5,6,8,9,5,2,10,2,3,4,5,6,7,8,9,5,5,5,11,44,554,4,5,3,77,86,5,-5 };
-	cout << min_max<int[29]>(arr) << tab << min_max(arr, 0) << endl;
+	cout << binary_to_decimal(decimal_to_binary(10)) << endl;
+
+
 	return 0;                                          // Bye!
 }

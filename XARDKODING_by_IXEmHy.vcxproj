@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="myalgorithm.cpp" />
     <ClCompile Include="SimpleTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
