@@ -9,6 +9,4 @@ class SimpleTimer
 public:
 	SimpleTimer();
 	~SimpleTimer();
-	friend int32_t main();
-	friend void timer_with_chrono();
 };

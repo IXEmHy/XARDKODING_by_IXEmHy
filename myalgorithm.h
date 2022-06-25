@@ -10,9 +10,9 @@
 #include <sstream>
 #include <thread>
 #include "SimpleTimer.h"
+#include "my_math.h"
 
 typedef SimpleTimer timer;
-const std::string tab = "    ";
 
 #define PI 3.141592653589793
 #define RADIAN 180/PI
@@ -20,35 +20,6 @@ const std::string tab = "    ";
 
 namespace thread = std::this_thread;
 namespace chrono = std::chrono;
-
-
-
-///  return begin elements  ///
-template <typename T, size_t N>
-const T* begin(const T(&str)[N]) { return str; }
-
-///  return end elements  ///
-template <typename T, size_t N>
-const T* end(const T(&str)[N]) { return str + N; }
-
-/// return size array ///
-template <typename T, size_t N>
-const T size(const T(&str)[N]) { return N; }
-
-
-/// ranks ///
-template <typename T>
-uint16_t ranks(const T& val)	                                  // Функция для определиная кол-во разрядов в числе
-{
-	uint32_t res = 0;
-	T temp = val;
-	do {
-		temp /= 10;
-		res++;
-	} while (temp > 0);
-
-	return res;
-}
 
 
 /// convert str in number or nymber vice versa  ///
@@ -69,134 +40,12 @@ std::string convert(T val)                                        // Конвертация
 	return oss.str();
 }
 
-
-/// factorial of a number ///
-uint64_t factorial(uint16_t N)                                    // Функция для вычесления факториала числа
-{ return N > 1 ? N * factorial(N - 1) : 1; }    
-
-
-/// degree of a number ///
-uint64_t degree(uint64_t x, uint64_t y)                           // Функция для вычесления степени числа
-{ return y ? x * degree(x, y - 1) : 1; }    
-
-
 /// swap number ///
 template<typename T>
 void swap(T& a, T& b) {
 	T temp = a;
 	a = b;
 	b = temp;
-}
-
-
-//   string     //
-///  operators  ///
-std::string operator*(const std::string& str,                     // Перегруженный бинарный оператор *, 
-	const uint32_t& num)                                          // позволяет продублировать строку указанное кол - во раз
-{ return num > 0 ? str + operator*(str, num - 1) : ""; }                 
-
-std::string operator*(const uint32_t& num,                        // Перегруженный бинарный оператор *, 
-	const std::string& str)										  // позволяет продублировать строку указанное кол-во раз
-{ return operator*(str, num); }    
-
-std::string& operator/(std::string& str,                          // Перегруженный бинарный оператор /, позволяет удалить все подстроки(str2) из строки (str)
-	const std::string& str2) {
-	return str.find(str2) != str.npos ? 
-		operator/(str.erase(str.find(str2), str2.length()), str2) 
-		: str; }    
-
-std::string& operator-(std::string& str,                          // Перегруженный бинарный оператор -, удаляет подстроку(str2) из строки (str)
-	const std::string& str2) {
-	return str.find(str2) != str.npos ?
-		str.erase(str.find(str2), str2.length()) 
-		: str; }	 
-
-
-bool operator==(const std::string& str, const std::string& str2)  // Перегруженный бинарный оператор ==, позволяет сравнить две строки между собой
-{ return str.size() == str2.size() && str.find(str2) != str.npos; }    
-
-bool operator!=(const std::string& str, const std::string& str2)  // Перегруженный бинарный оператор !=, позволяет проверить на неравенство две строки между собой
-{ return !operator==(str, str2); }
-
-// function //
-size_t strlen_t(const char* str, size_t len = 0)                  // Функция позволяет узнать размер строки (в учет размера строки не входит терминирующий нуль)
-{ return str[len] != '\0' ? strlen_t(str, len + 1) : len; }
-
-
-/// math ///
-// Функции для работы с базовой математикой //
-// Следующий функции позволяют работать с арифметической прогрессии //
-std::vector<double_t> aritho(const double_t& a1,                  // Функция позволяет создать вектор арифметической прогрессии
-	const double_t& d, 
-	const uint32_t& size = 2, 
-	std::vector<double_t> v = {}) {
-	v.at(0) = a1; v.resize(size);
-	for (auto i = v.begin() + 1; i < v.end(); i++)
-		*i = *(i - 1) + d;
-	return v;
-}
-
-inline double_t aritho_d(const std::vector<double_t>& v)          // Позволяет узнать разность между элементами арифметической прогрессии
-{ return v.at(1) - v.at(0); }    
-
-inline double_t aritho_sum(std::vector<double_t>& v)              // Позволяет узнать сумму  арифметической прогрессии
-{ return (v.at(0) + v.at(v.size() - 1)) / 2 * v.size(); }    
-
-inline double_t aritho_search(const std::vector<double_t>& v,     // Позволяет найти элемент в существующей  арифметической прогрессии
-	const uint32_t& an) { 
-    return v.size() >= an ? v.at(an - 1) 
-		: v.at(0) + aritho_d(v) * (an - 1); }    
-
-size_t aritho_search(const double_t& el,                          // Позволяет найти каким по счету идет элемент в существующей
-	const std::vector<double_t>& v) {                             // и не существующей  арифметической прогрессии
-	if (std::find(v.begin(), v.end(), el) != v.end())
-		return std::find(v.begin(), v.end(), el) - v.begin() + 1;
-
-	size_t i = v.size() + 1;
-	for (double_t d = aritho_d(v), g = v.at(i - 2) + d; 
-		g <= el; 
-		i++, g += d)
-		if (g == el)
-			return i;
-	return NULL;
-}
-
-bool is_aritho(const std::vector<double_t>& v) {                  // Проверяет, является ли переданная арифметическая прогрессия арифметической прогрессией
-	for (auto& el : v)
-		if (el + aritho_d(v) != *(&el + 1) 
-			&& el != v.at(v.size() - 1))
-			return false;
-	return true;
-}
-
-
-
-void timer_with_chrono()                                          // Таймер (фиговый-_*)
-{
-	char sec = 0, min = 0, hour = 0, day = 0;
-	while (day < 1)
-	{
-		timer a;
-		std::cout << "Passed time: "
-			<< "sec: " << sec << std::string(" ") * (5 - ranks(sec))
-			<< "min: " << min << std::string(" ") * (5 - ranks(min)) 
-			<< "hour: " << hour << '\r';
-		thread::sleep_for(chrono::milliseconds(999));
-
-		if (sec == 60) {
-			++min;
-			if (min == 60) {
-				++hour;
-				if (hour == 24) {
-					++day;
-					std::cout << "Timer stoped!\nBye!\n";
-				}
-				min = 0;
-			}
-			sec = 0;
-		}
-		++sec;
-	}
 }
 
 std::string decimal_to_binary(const uint64_t& val)                // Перевод числа из десятичной в двоичную систему счисления

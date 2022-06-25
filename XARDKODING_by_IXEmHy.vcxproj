@@ -140,11 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="my_math.cpp" />
     <ClCompile Include="SimpleTimer.cpp" />
+    <ClCompile Include="string_operators.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="functions_for_arrays.h" />
     <ClInclude Include="myalgorithm.h" />
+    <ClInclude Include="my_math.h" />
     <ClInclude Include="SimpleTimer.h" />
+    <ClInclude Include="string_operators.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

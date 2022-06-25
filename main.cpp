@@ -1,8 +1,11 @@
-#include "myalgorithm.h"
+//#include "myalgorithm.h"
 #include <Windows.h>
 #include <random>
+#include <iostream>
 #include <exception>
 #include <iomanip>
+
+const std::string tab = "    ";
 
 //#pragma comment(linker,"/STACK:4194304")
 
@@ -112,9 +115,6 @@ int32_t main()
 	using std::cout;  using std::endl; using std::cin; // Использование cout, endl, cin
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-
-	cout << binary_to_decimal(decimal_to_binary(10)) << endl;
-
 
 	return 0;                                          // Bye!
 }
