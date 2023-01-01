@@ -1,7 +1,8 @@
 #include "my_math.h"
 
-/// math ///
-// Ôóíêöèè äëÿ ðàáîòû ñ áàçîâîé ìàòåìàòèêîé //
+/// math /// 
+
+// Ã”Ã³Ã­ÃªÃ¶Ã¨Ã¨ Ã¤Ã«Ã¿ Ã°Ã Ã¡Ã®Ã²Ã» Ã± Ã¡Ã Ã§Ã®Ã¢Ã®Ã© Ã¬Ã Ã²Ã¥Ã¬Ã Ã²Ã¨ÃªÃ®Ã© //
 
 uint64_t factorial(uint16_t N) {
 	return N > 1 ? N * factorial(N - 1) : 1;
@@ -56,4 +57,18 @@ bool is_aritho(const std::vector<double_t>& v) {
 			&& el != v.at(v.size() - 1))
 			return false;
 	return true;
-}
+} 
+// cmath + string
+double mround(const double& val, const unsigned int& cof = 1){
+	using namespace std;
+    string sval = to_string(val);
+   
+    double templ = val + 0.5/(pow(10, cof - 1));
+  
+    string str  = to_string(templ);
+       
+    size_t temp = sval.find('.') + cof -1;
+   
+    str.erase(str.begin() + temp + 1, str.end());
+    return stod(str);
+} 
