@@ -1,37 +1,39 @@
 #pragma once
 #include <cstdint>
-#include <vector>
+#include <vector> 
+#include <string> 
+#include <cmath>
 
 /// factorial of a number ///
-uint64_t factorial(uint16_t N);                                   // Функция для вычесления факториала числа
+uint64_t factorial(uint16_t N);                                   // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГўГ»Г·ГҐГ±Г«ГҐГ­ГЁГї ГґГ ГЄГІГ®Г°ГЁГ Г«Г  Г·ГЁГ±Г«Г 
 /// degree of a number ///
-uint64_t degree(uint64_t x, uint64_t y);                          // Функция для вычесления степени числа
+uint64_t degree(uint64_t x, uint64_t y);                          // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГўГ»Г·ГҐГ±Г«ГҐГ­ГЁГї Г±ГІГҐГЇГҐГ­ГЁ Г·ГЁГ±Г«Г 
 
 
-// Следующие функции позволяют работать с арифметической прогрессии //
+// Г‘Г«ГҐГ¤ГіГѕГ№ГЁГҐ ГґГіГ­ГЄГ¶ГЁГЁ ГЇГ®Г§ГўГ®Г«ГїГѕГІ Г°Г ГЎГ®ГІГ ГІГј Г± Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ®Г© ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГЁ //
 
-std::vector<double_t> aritho(const double_t& a1,                  // Функция позволяет создать вектор арифметической прогрессии
+std::vector<double_t> aritho(const double_t& a1,                  // Г”ГіГ­ГЄГ¶ГЁГї ГЇГ®Г§ГўГ®Г«ГїГҐГІ Г±Г®Г§Г¤Г ГІГј ГўГҐГЄГІГ®Г° Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ®Г© ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГЁ
 	const double_t& d,
 	const uint32_t& size,
 	std::vector<double_t> v);
 
-inline double_t aritho_d(const std::vector<double_t>& v);         // Позволяет узнать разность между элементами арифметической прогрессии
+inline double_t aritho_d(const std::vector<double_t>& v);         // ГЏГ®Г§ГўГ®Г«ГїГҐГІ ГіГ§Г­Г ГІГј Г°Г Г§Г­Г®Г±ГІГј Г¬ГҐГ¦Г¤Гі ГЅГ«ГҐГ¬ГҐГ­ГІГ Г¬ГЁ Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ®Г© ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГЁ
 
-inline double_t aritho_sum(std::vector<double_t>& v);             // Позволяет узнать сумму  арифметической прогрессии
+inline double_t aritho_sum(std::vector<double_t>& v);             // ГЏГ®Г§ГўГ®Г«ГїГҐГІ ГіГ§Г­Г ГІГј Г±ГіГ¬Г¬Гі  Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ®Г© ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГЁ
 
-inline double_t aritho_search                                     // Позволяет найти элемент в существующей  арифметической прогрессии
+inline double_t aritho_search                                     // ГЏГ®Г§ГўГ®Г«ГїГҐГІ Г­Г Г©ГІГЁ ГЅГ«ГҐГ¬ГҐГ­ГІ Гў Г±ГіГ№ГҐГ±ГІГўГіГѕГ№ГҐГ©  Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ®Г© ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГЁ
 (const std::vector<double_t>& v,
 	const uint32_t& an);
 
-size_t aritho_search                                              // Позволяет найти каким по счету идет элемент в существующей
+size_t aritho_search                                              // ГЏГ®Г§ГўГ®Г«ГїГҐГІ Г­Г Г©ГІГЁ ГЄГ ГЄГЁГ¬ ГЇГ® Г±Г·ГҐГІГі ГЁГ¤ГҐГІ ГЅГ«ГҐГ¬ГҐГ­ГІ Гў Г±ГіГ№ГҐГ±ГІГўГіГѕГ№ГҐГ©
 (const double_t& el,                          
-	const std::vector<double_t>& v);                              // и не существующей  арифметической прогрессии
+	const std::vector<double_t>& v);                              // ГЁ Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГѕГ№ГҐГ©  Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ®Г© ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГЁ
 
-bool is_aritho(const std::vector<double_t>& v);                   // Проверяет, является ли переданная арифметическая прогрессия арифметической прогрессией
+bool is_aritho(const std::vector<double_t>& v);                   // ГЏГ°Г®ГўГҐГ°ГїГҐГІ, ГїГўГ«ГїГҐГІГ±Гї Г«ГЁ ГЇГҐГ°ГҐГ¤Г Г­Г­Г Гї Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ Гї ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГї Г Г°ГЁГґГ¬ГҐГІГЁГ·ГҐГ±ГЄГ®Г© ГЇГ°Г®ГЈГ°ГҐГ±Г±ГЁГҐГ©
 
 /// ranks ///
 template <typename T>
-uint16_t ranks(const T& val)	                                  // Функция для определиная кол-во разрядов в числе
+uint16_t ranks(const T& val)	                                  // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї Г®ГЇГ°ГҐГ¤ГҐГ«ГЁГ­Г Гї ГЄГ®Г«-ГўГ® Г°Г Г§Г°ГїГ¤Г®Гў Гў Г·ГЁГ±Г«ГҐ
 {
 	uint32_t res = 0;
 	T temp = val;
@@ -41,4 +43,8 @@ uint16_t ranks(const T& val)	                                  // Функция для оп
 	} while (temp > 0);
 
 	return res;
-}
+} 
+
+
+// cmath + string
+double mround(const double& val, const unsigned int& cof = 1);
