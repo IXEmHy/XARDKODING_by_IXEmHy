@@ -1,5 +1,5 @@
 #pragma once
-// P.S. Комментарии пока что будут на русском -_- //
+// P.S. ГЉГ®Г¬Г¬ГҐГ­ГІГ Г°ГЁГЁ ГЇГ®ГЄГ  Г·ГІГ® ГЎГіГ¤ГіГІ Г­Г  Г°ГіГ±Г±ГЄГ®Г¬ -_- //
 #ifndef ON
 #define ON
 
@@ -24,7 +24,7 @@ namespace chrono = std::chrono;
 
 /// convert str in number or nymber vice versa  ///
 template<typename T>
-T convert(const std::string& s)                                   // Конвертация строки в число (Код не мой)
+T convert(const std::string& s)                                   // ГЉГ®Г­ГўГҐГ°ГІГ Г¶ГЁГї Г±ГІГ°Г®ГЄГЁ Гў Г·ГЁГ±Г«Г® (ГЉГ®Г¤ Г­ГҐ Г¬Г®Г©)
 {
 	std::istringstream iss(s, std::istringstream::in);
 	T res{};
@@ -33,7 +33,7 @@ T convert(const std::string& s)                                   // Конвертация
 }
 
 template<typename T>
-std::string convert(T val)                                        // Конвертация числа в строку (Код не мой)
+std::string convert(T val)                                        // ГЉГ®Г­ГўГҐГ°ГІГ Г¶ГЁГї Г·ГЁГ±Г«Г  Гў Г±ГІГ°Г®ГЄГі (ГЉГ®Г¤ Г­ГҐ Г¬Г®Г©)
 {
 	std::ostringstream oss;
 	oss << val;
@@ -48,7 +48,7 @@ void swap(T& a, T& b) {
 	b = temp;
 }
 
-std::string decimal_to_binary(const uint64_t& val)                // Перевод числа из десятичной в двоичную систему счисления
+std::string decimal_to_binary(const uint64_t& val)                // ГЏГҐГ°ГҐГўГ®Г¤ Г·ГЁГ±Г«Г  ГЁГ§ Г¤ГҐГ±ГїГІГЁГ·Г­Г®Г© Гў Г¤ГўГ®ГЁГ·Г­ГіГѕ Г±ГЁГ±ГІГҐГ¬Гі Г±Г·ГЁГ±Г«ГҐГ­ГЁГї
 {
 	auto temp = val;
 	std::string res;
@@ -63,7 +63,7 @@ std::string decimal_to_binary(const uint64_t& val)                // Перевод чис
 	return res;
 }
 
-const uint64_t binary_to_decimal(const std::string& str)          // Перевод числа из двоичной системы счисления в десятичную
+const uint64_t binary_to_decimal(const std::string& str)          // ГЏГҐГ°ГҐГўГ®Г¤ Г·ГЁГ±Г«Г  ГЁГ§ Г¤ГўГ®ГЁГ·Г­Г®Г© Г±ГЁГ±ГІГҐГ¬Г» Г±Г·ГЁГ±Г«ГҐГ­ГЁГї Гў Г¤ГҐГ±ГїГІГЁГ·Г­ГіГѕ
 {
 	if (str.size() > 64)
 		return 0;
@@ -75,15 +75,15 @@ const uint64_t binary_to_decimal(const std::string& str)          // Перевод чис
 
 ///  matrix  ///
 /// class Matrix ///
-//  класс Матрица  //
+//  ГЄГ«Г Г±Г± ГЊГ ГІГ°ГЁГ¶Г   //
 //     TODO       //
 template<class T>
 class Matrix {                                                    //  class Matrix  //                                                              
-	T** matrix;                                                   // Сама матрица
-	uint32_t m, n;                                                // Строки и колонны 
+	T** matrix;                                                   // Г‘Г Г¬Г  Г¬Г ГІГ°ГЁГ¶Г 
+	uint32_t m, n;                                                // Г‘ГІГ°Г®ГЄГЁ ГЁ ГЄГ®Г«Г®Г­Г­Г» 
 public:
-	Matrix(const uint32_t& m = 1,                                 // Конструктор не пол умолчанию класса Matrix. 
-		const uint32_t& n = 1,                                    // Принимает кол-во строк, колонн, и то, чем заполнить матрицу
+	Matrix(const uint32_t& m = 1,                                 // ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° Г­ГҐ ГЇГ®Г« ГіГ¬Г®Г«Г·Г Г­ГЁГѕ ГЄГ«Г Г±Г±Г  Matrix. 
+		const uint32_t& n = 1,                                    // ГЏГ°ГЁГ­ГЁГ¬Г ГҐГІ ГЄГ®Г«-ГўГ® Г±ГІГ°Г®ГЄ, ГЄГ®Г«Г®Г­Г­, ГЁ ГІГ®, Г·ГҐГ¬ Г§Г ГЇГ®Г«Г­ГЁГІГј Г¬Г ГІГ°ГЁГ¶Гі
 		const T& aggr = {}) : m(m), n(n)                          
 	{
 		matrix = new T*[m];
@@ -94,19 +94,19 @@ public:
 		}
 	}
 
-	~Matrix()                                                     // Деструктор класса Matrix
+	~Matrix()                                                     // Г„ГҐГ±ГІГ°ГіГЄГІГ®Г° ГЄГ«Г Г±Г±Г  Matrix
 	{
 		for (uint32_t i = 0; i < m; i++)
 			delete[] matrix[i];
 		delete[]matrix;
 	}
 
-	auto operator[](const uint32_t& m) const { return matrix[m]; }// перегруженный оператор обращение к эелементу массива по индексу
+	auto operator[](const uint32_t& m) const { return matrix[m]; }// ГЇГҐГ°ГҐГЈГ°ГіГ¦ГҐГ­Г­Г»Г© Г®ГЇГҐГ°Г ГІГ®Г° Г®ГЎГ°Г Г№ГҐГ­ГЁГҐ ГЄ ГЅГҐГ«ГҐГ¬ГҐГ­ГІГі Г¬Г Г±Г±ГЁГўГ  ГЇГ® ГЁГ­Г¤ГҐГЄГ±Гі
 
-	T getM() { return m; }                                        // Геттер для m
-	T getN() { return n; }                                        // Геттер для m
-	T getSize() { return m * n; }                                 // Геттер для размера всего массива
-	void getMat() const {										  // Геттер для выведения на экран всей матрицы
+	T getM() { return m; }                                        // ГѓГҐГІГІГҐГ° Г¤Г«Гї m
+	T getN() { return n; }                                        // ГѓГҐГІГІГҐГ° Г¤Г«Гї m
+	T getSize() { return m * n; }                                 // ГѓГҐГІГІГҐГ° Г¤Г«Гї Г°Г Г§Г¬ГҐГ°Г  ГўГ±ГҐГЈГ® Г¬Г Г±Г±ГЁГўГ 
+	void getMat() const {										  // ГѓГҐГІГІГҐГ° Г¤Г«Гї ГўГ»ГўГҐГ¤ГҐГ­ГЁГї Г­Г  ГЅГЄГ°Г Г­ ГўГ±ГҐГ© Г¬Г ГІГ°ГЁГ¶Г»
 		for (uint32_t i = 0; i < m; i++) {
 			for (uint32_t g = 0; g < n; g++)
 				std::cout << matrix[i][g] << tab;
@@ -115,8 +115,8 @@ public:
 		std::cout.flush();
 	}
 
-	void arrgs(const T& top_half,                                 // Метод для заполнения матрицы указанными значениями для:
-		const T& bottom_half,                                     // верхней половины, нижней половины, диагонали
+	void arrgs(const T& top_half,                                 // ГЊГҐГІГ®Г¤ Г¤Г«Гї Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГї Г¬Г ГІГ°ГЁГ¶Г» ГіГЄГ Г§Г Г­Г­Г»Г¬ГЁ Г§Г­Г Г·ГҐГ­ГЁГїГ¬ГЁ Г¤Г«Гї:
+		const T& bottom_half,                                     // ГўГҐГ°ГµГ­ГҐГ© ГЇГ®Г«Г®ГўГЁГ­Г», Г­ГЁГ¦Г­ГҐГ© ГЇГ®Г«Г®ГўГЁГ­Г», Г¤ГЁГ ГЈГ®Г­Г Г«ГЁ
 		const T& diagonal) {    
 		for (uint32_t i = 0; i < m; ++i)
 			for (uint32_t g = 0; g < n; ++g)
@@ -124,7 +124,7 @@ public:
 				: i > g ? bottom_half : diagonal;
 	}
 
-	const std::string search(T& el) const {                       // Метод для поиска элемента в матрице
+	const std::string search(T& el) const {                       // ГЊГҐГІГ®Г¤ Г¤Г«Гї ГЇГ®ГЁГ±ГЄГ  ГЅГ«ГҐГ¬ГҐГ­ГІГ  Гў Г¬Г ГІГ°ГЁГ¶ГҐ
 		for (uint32_t i = 0; i < m; i++)
 			for (uint32_t g = 0; g < n; g++)
 				if ((*this)[i][g] == el)           
@@ -133,7 +133,7 @@ public:
 		return "-1";
 	}
 
-	const std::string half(T& el) const {                         // Метод, для определения в какой половине находится элемент
+	const std::string half(T& el) const {                         // ГЊГҐГІГ®Г¤, Г¤Г«Гї Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­ГЁГї Гў ГЄГ ГЄГ®Г© ГЇГ®Г«Г®ГўГЁГ­ГҐ Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЅГ«ГҐГ¬ГҐГ­ГІ
 		if (search(el) == "-1")
 			return "Not found . . .\n";
 
@@ -147,7 +147,7 @@ public:
 		return "Diagonal\n";
 	}
 
-	friend bool operator==(const Matrix<T>& m1,                   // Перегруженный оператор-друг для сравнения двух матриц
+	friend bool operator==(const Matrix<T>& m1,                   // ГЏГҐГ°ГҐГЈГ°ГіГ¦ГҐГ­Г­Г»Г© Г®ГЇГҐГ°Г ГІГ®Г°-Г¤Г°ГіГЈ Г¤Г«Гї Г±Г°Г ГўГ­ГҐГ­ГЁГї Г¤ГўГіГµ Г¬Г ГІГ°ГЁГ¶
 		const Matrix<T>& m2) {    
 		if (m1.sizes() != m2.sizes())
 			return false;
@@ -158,7 +158,7 @@ public:
 		return true;
 	}
 
-	friend std::ostream& operator<<(std::ostream& os,             // Перегруженный оператор-друг для вывода всех элементов матрицы
+	friend std::ostream& operator<<(std::ostream& os,             // ГЏГҐГ°ГҐГЈГ°ГіГ¦ГҐГ­Г­Г»Г© Г®ГЇГҐГ°Г ГІГ®Г°-Г¤Г°ГіГЈ Г¤Г«Гї ГўГ»ГўГ®Г¤Г  ГўГ±ГҐГµ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў Г¬Г ГІГ°ГЁГ¶Г»
 		const Matrix<T>& matrix) {   
 		for (uint32_t i = 0; i < matrix.m; i++) {
 			for (uint32_t g = 0; g < matrix.n; g++)
@@ -168,7 +168,7 @@ public:
 		std::cout.flush();
 		return os;
 	}
-	friend std::istream& operator>>(std::istream& os,             // Перегруженный оператор-друг для вывода всех элементов матрицы
+	friend std::istream& operator>>(std::istream& os,             // ГЏГҐГ°ГҐГЈГ°ГіГ¦ГҐГ­Г­Г»Г© Г®ГЇГҐГ°Г ГІГ®Г°-Г¤Г°ГіГЈ Г¤Г«Гї ГўГ»ГўГ®Г¤Г  ГўГ±ГҐГµ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў Г¬Г ГІГ°ГЁГ¶Г»
 		const Matrix<T>& matrix) {    
 		for (uint32_t i = 0; i < matrix.m; i++) {
 			for (uint32_t g = 0; g < matrix.n; g++) {
@@ -186,64 +186,64 @@ public:
 
 
 size_t degree_two(const size_t& num, size_t res = 0)   
-{ return num > 0 ? degree_two(num / 2, res + 1) : res; }          // Функция для вычесления, в какой степени двойка, будет больше чем переданный аргумент
+{ return num > 0 ? degree_two(num / 2, res + 1) : res; }          // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГўГ»Г·ГҐГ±Г«ГҐГ­ГЁГї, Гў ГЄГ ГЄГ®Г© Г±ГІГҐГЇГҐГ­ГЁ Г¤ГўГ®Г©ГЄГ , ГЎГіГ¤ГҐГІ ГЎГ®Г«ГјГёГҐ Г·ГҐГ¬ ГЇГҐГ°ГҐГ¤Г Г­Г­Г»Г© Г Г°ГЈГіГ¬ГҐГ­ГІ
 
 
 template<class T>
-class VecEno                                                      // класс VecEno
+class VecEno                                                      // ГЄГ«Г Г±Г± VecEno
 {
-	size_t       size, _capacity;                                 // размер и капасити вектора
-	const size_t MAX_SIZE = 65536 / sizeof(T);                    // максимальный размер для вектора (максимально можно создать объект размер которого будет 65536 байт)
-	T*           array;                                           // сам массив
+	size_t       size, _capacity;                                 // Г°Г Г§Г¬ГҐГ° ГЁ ГЄГ ГЇГ Г±ГЁГІГЁ ГўГҐГЄГІГ®Г°Г 
+	const size_t MAX_SIZE = 65536 / sizeof(T);                    // Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­Г»Г© Г°Г Г§Г¬ГҐГ° Г¤Г«Гї ГўГҐГЄГІГ®Г°Г  (Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­Г® Г¬Г®Г¦Г­Г® Г±Г®Г§Г¤Г ГІГј Г®ГЎГєГҐГЄГІ Г°Г Г§Г¬ГҐГ° ГЄГ®ГІГ®Г°Г®ГЈГ® ГЎГіГ¤ГҐГІ 65536 ГЎГ Г©ГІ)
+	T*           array;                                           // Г±Г Г¬ Г¬Г Г±Г±ГЁГў
 public:
-	class iterator                                                // класс iterator
+	class iterator                                                // ГЄГ«Г Г±Г± iterator
 	{ 
-		T* el;                                                    // элемент на который указывает итератор
+		T* el;                                                    // ГЅГ«ГҐГ¬ГҐГ­ГІ Г­Г  ГЄГ®ГІГ®Г°Г»Г© ГіГЄГ Г§Г»ГўГ ГҐГІ ГЁГІГҐГ°Г ГІГ®Г°
 	public: 
-		iterator(T* elm) { el = elm; }                            // конструктор инициализацией уже указателем из вне // не безопасно
-		iterator(iterator* elm) { el = elm->el; }                 // конструктор копирования
-		T& operator*() const { return *el; }                      // оператор разыменования
-		T* operator-(const size_t& it) { return el - it; }        // оператор разности между указателем и числом (арифм. указателей)
-		T* operator+(const size_t& it) { return el + it; }        // оператор сложения между указателем и числом (арифм. указателей)
-		T* operator++() { return ++el; }                          // префиксный инкримент
-		T* operator++(int) { return el++; }                       // постфиксный инкримент
-		T* operator--() { return --el; }                          // префиксный декримент
-		T* operator--(int) { return el--; }                       // постфиксный декримент
+		iterator(T* elm) { el = elm; }                            // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГҐГ© ГіГ¦ГҐ ГіГЄГ Г§Г ГІГҐГ«ГҐГ¬ ГЁГ§ ГўГ­ГҐ // Г­ГҐ ГЎГҐГ§Г®ГЇГ Г±Г­Г®
+		iterator(iterator* elm) { el = elm->el; }                 // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї
+		T& operator*() const { return *el; }                      // Г®ГЇГҐГ°Г ГІГ®Г° Г°Г Г§Г»Г¬ГҐГ­Г®ГўГ Г­ГЁГї
+		T* operator-(const size_t& it) { return el - it; }        // Г®ГЇГҐГ°Г ГІГ®Г° Г°Г Г§Г­Г®Г±ГІГЁ Г¬ГҐГ¦Г¤Гі ГіГЄГ Г§Г ГІГҐГ«ГҐГ¬ ГЁ Г·ГЁГ±Г«Г®Г¬ (Г Г°ГЁГґГ¬. ГіГЄГ Г§Г ГІГҐГ«ГҐГ©)
+		T* operator+(const size_t& it) { return el + it; }        // Г®ГЇГҐГ°Г ГІГ®Г° Г±Г«Г®Г¦ГҐГ­ГЁГї Г¬ГҐГ¦Г¤Гі ГіГЄГ Г§Г ГІГҐГ«ГҐГ¬ ГЁ Г·ГЁГ±Г«Г®Г¬ (Г Г°ГЁГґГ¬. ГіГЄГ Г§Г ГІГҐГ«ГҐГ©)
+		T* operator++() { return ++el; }                          // ГЇГ°ГҐГґГЁГЄГ±Г­Г»Г© ГЁГ­ГЄГ°ГЁГ¬ГҐГ­ГІ
+		T* operator++(int) { return el++; }                       // ГЇГ®Г±ГІГґГЁГЄГ±Г­Г»Г© ГЁГ­ГЄГ°ГЁГ¬ГҐГ­ГІ
+		T* operator--() { return --el; }                          // ГЇГ°ГҐГґГЁГЄГ±Г­Г»Г© Г¤ГҐГЄГ°ГЁГ¬ГҐГ­ГІ
+		T* operator--(int) { return el--; }                       // ГЇГ®Г±ГІГґГЁГЄГ±Г­Г»Г© Г¤ГҐГЄГ°ГЁГ¬ГҐГ­ГІ
 		 
-		bool operator>(const iterator& it) { return el > it.el; } // оператор сравнения указателей (больше)
-		bool operator<(const iterator& it) { return el < it.el; } // оператор сравнения указателей (меньше)
+		bool operator>(const iterator& it) { return el > it.el; } // Г®ГЇГҐГ°Г ГІГ®Г° Г±Г°Г ГўГ­ГҐГ­ГЁГї ГіГЄГ Г§Г ГІГҐГ«ГҐГ© (ГЎГ®Г«ГјГёГҐ)
+		bool operator<(const iterator& it) { return el < it.el; } // Г®ГЇГҐГ°Г ГІГ®Г° Г±Г°Г ГўГ­ГҐГ­ГЁГї ГіГЄГ Г§Г ГІГҐГ«ГҐГ© (Г¬ГҐГ­ГјГёГҐ)
 		bool operator!=(const iterator& it) { return el != it.el; }
 	};
 
-	VecEno() : size(1), _capacity(2) { array = new T[_capacity]; }  // конструктор по умолчанию
+	VecEno() : size(1), _capacity(2) { array = new T[_capacity]; }  // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ
 
-	VecEno(const std::initializer_list<T>& _init)                 // конструктор с заданием uniform-инициализации
+	VecEno(const std::initializer_list<T>& _init)                 // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° Г± Г§Г Г¤Г Г­ГЁГҐГ¬ uniform-ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГЁ
 	: size(_init.size()), _capacity(degree(2, degree_two(size))) {
 		array = size >= MAX_SIZE ? new T[MAX_SIZE] : new T[_capacity];
 		uint32_t i = 0;
 		for (auto it = _init.begin(), end = _init.end(); it != end; it++, i++)
 			array[i] = *it;
 	}
-	VecEno(const VecEno<T>& vec)                                  // конструктор копирования
+	VecEno(const VecEno<T>& vec)                                  // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї
 	: size(vec.size), _capacity(degree(2, degree_two(size))) { 
 		array = new T[_capacity];
 		for (size_t i = 0; i < size; i++)
 			array[i] = vec[i];
 	}
-	~VecEno() { delete[] array; }                                 // деструктор
+	~VecEno() { delete[] array; }                                 // Г¤ГҐГ±ГІГ°ГіГЄГІГ®Г°
 
-	const size_t getSize() const { return size; }                 // геттер для size
-	const size_t getCapacity() const { return _capacity; }        // геттер для _capacity
-	const size_t getMAX_SIZE() const { return MAX_SIZE; }         // геттер для MAX_SIZE
-	iterator begin() const { return iterator(array); }            // геттер для begin
-	iterator end() const { return iterator(array + size); }       // геттер для end
+	const size_t getSize() const { return size; }                 // ГЈГҐГІГІГҐГ° Г¤Г«Гї size
+	const size_t getCapacity() const { return _capacity; }        // ГЈГҐГІГІГҐГ° Г¤Г«Гї _capacity
+	const size_t getMAX_SIZE() const { return MAX_SIZE; }         // ГЈГҐГІГІГҐГ° Г¤Г«Гї MAX_SIZE
+	iterator begin() const { return iterator(array); }            // ГЈГҐГІГІГҐГ° Г¤Г«Гї begin
+	iterator end() const { return iterator(array + size); }       // ГЈГҐГІГІГҐГ° Г¤Г«Гї end
 
 	void reverse() {
 		for (size_t i = 0; i < size / 2; i++)
 			swap((*this)[i], (*this)[size - 1 - i]);
 	}
 
-	void setCapacity(const size_t& _capacity) {                   // сеттер для _capacity
+	void setCapacity(const size_t& _capacity) {                   // Г±ГҐГІГІГҐГ° Г¤Г«Гї _capacity
 		T* temp_ptr = array;
 		size_t tempCap = this->_capacity;
 		this->_capacity = _capacity;
@@ -253,7 +253,7 @@ public:
 		delete[] temp_ptr;
 	}
 
-	void push_back(const T& el) {                                 // добавить элемент в конец
+	void push_back(const T& el) {                                 // Г¤Г®ГЎГ ГўГЁГІГј ГЅГ«ГҐГ¬ГҐГ­ГІ Гў ГЄГ®Г­ГҐГ¶
 		if (size < _capacity) {
 			array[size] = el;
 			++size;
@@ -266,11 +266,11 @@ public:
 	void pop_back() { size--; }
 
 
-	T& at(const size_t& ind) { return size > ind ? array[ind]     // обратится к элементу по индексу (безопасно)
-		: throw "Выход за пределы вектора . . .\n"; } 
-	T& operator[](const size_t& ind) { return array[ind]; }       // обратится к элементу по индексу
+	T& at(const size_t& ind) { return size > ind ? array[ind]     // Г®ГЎГ°Г ГІГЁГІГ±Гї ГЄ ГЅГ«ГҐГ¬ГҐГ­ГІГі ГЇГ® ГЁГ­Г¤ГҐГЄГ±Гі (ГЎГҐГ§Г®ГЇГ Г±Г­Г®)
+		: throw "Г‚Г»ГµГ®Г¤ Г§Г  ГЇГ°ГҐГ¤ГҐГ«Г» ГўГҐГЄГІГ®Г°Г  . . .\n"; } 
+	T& operator[](const size_t& ind) { return array[ind]; }       // Г®ГЎГ°Г ГІГЁГІГ±Гї ГЄ ГЅГ«ГҐГ¬ГҐГ­ГІГі ГЇГ® ГЁГ­Г¤ГҐГЄГ±Гі
 
-	friend std::ostream& operator<<                               // вывод вектора (для удобства)
+	friend std::ostream& operator<<                               // ГўГ»ГўГ®Г¤ ГўГҐГЄГІГ®Г°Г  (Г¤Г«Гї ГіГ¤Г®ГЎГ±ГІГўГ )
 		(std::ostream& os, const VecEno<T>& vec) {
 		for (auto begin = vec.begin(), end = vec.end(); begin < end; begin++)
 			std::cout << *begin << '\t';
@@ -281,11 +281,11 @@ public:
 
 
 
-double rad_deg(const double& rad) { return rad * RADIAN; }        // перевод радиан в грудусы
-double deg_rad(const double& deg) { return deg * DEGREE; }        // перевод градусы в радианы
+double rad_deg(const double& rad) { return rad * RADIAN; }        // ГЇГҐГ°ГҐГўГ®Г¤ Г°Г Г¤ГЁГ Г­ Гў ГЈГ°ГіГ¤ГіГ±Г»
+double deg_rad(const double& deg) { return deg * DEGREE; }        // ГЇГҐГ°ГҐГўГ®Г¤ ГЈГ°Г Г¤ГіГ±Г» Гў Г°Г Г¤ГЁГ Г­Г»
 
 // reverse //
-template<class T>                                                 // реверс массива встроенного типа
+template<class T>                                                 // Г°ГҐГўГҐГ°Г± Г¬Г Г±Г±ГЁГўГ  ГўГ±ГІГ°Г®ГҐГ­Г­Г®ГЈГ® ГІГЁГЇГ 
 void reverse(T& arr) {
 	for (size_t i = 0, size = sizeof(arr) / sizeof(arr[0]); i < size / 2; i++)
 		swap(arr[i], arr[size - 1 - i]);
@@ -294,7 +294,7 @@ void reverse(T& arr) {
 // SORT //
 // choice sort //
 template<typename T>
-void sort(T& arr, bool smallset_to_largest = true) {              // сортировка массива встроенного типа
+void sort(T& arr, bool smallset_to_largest = true) {              // Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  Г¬Г Г±Г±ГЁГўГ  ГўГ±ГІГ°Г®ГҐГ­Г­Г®ГЈГ® ГІГЁГЇГ 
 	for (size_t i = 0, g = 0, size = sizeof(arr) / sizeof(arr[0]); i != size - 1; i++)
 		for (g = i + 1; g < size; g++)
 			if (arr[i] != arr[g] && arr[i] > arr[g] == smallset_to_largest)
@@ -303,7 +303,7 @@ void sort(T& arr, bool smallset_to_largest = true) {              // сортировка 
 
 // min element //
 template<typename T>
-auto min_max(T& arr, bool _min = true) {                          // сортировка массива встроенного типа
+auto min_max(T& arr, bool _min = true) {                          // Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  Г¬Г Г±Г±ГЁГўГ  ГўГ±ГІГ°Г®ГҐГ­Г­Г®ГЈГ® ГІГЁГЇГ 
 	auto min_max = arr[0];
 	for (size_t i = 1, size = sizeof(arr) / sizeof(arr[0]); i != size; i++)
 		if (arr[i] != min_max && min_max > arr[i] == _min)
@@ -311,13 +311,18 @@ auto min_max(T& arr, bool _min = true) {                          // сортировка 
 	return min_max;
 }
 
-const char* layout(const std::string& st) {
-	return st.find('q') != st.npos && st.find('Q') != st.npos ? "qwerty" : "йцукен";
+
+
+std::string layout(const std::string& st) {
+	for(auto& el : st) { 
+        if(!((el >= 'a' && el <= 'z') || (el >= 'A' && el <= 'Z') || el == ' ' || (el >= 0 && el <= 27)))  return "other"; 
+    } 
+    return "qwerty"; 
 }
 
 std::string translit(const std::string& str, const int& from, const int& to) {
 	std::string layout[2]
-	{ "йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ",
+	{ "Г©Г¶ГіГЄГҐГ­ГЈГёГ№Г§ГµГєГґГ»ГўГ ГЇГ°Г®Г«Г¤Г¦ГЅГїГ·Г±Г¬ГЁГІГјГЎГѕГ‰Г–Г“ГЉГ…ГЌГѓГГ™Г‡Г•ГљГ”Г›Г‚ГЂГЏГђГЋГ‹Г„Г†ГќГџГ—Г‘ГЊГ€Г’ГњГЃГћ",
 	  "qwertyuiop[]asdfghjkl;'zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>" },
 		res = str;
 
