@@ -331,7 +331,10 @@ std::string translit(const std::string& str, const int& from, const int& to) {
 		res[i] = find != str.npos ? layout[to][find] : res[i];
 	}
 	return res;
-}//  TODO  //
+} 
+
+
+//  TODO  //
  size_t ind_n(const std::string& val, const int32_t& del = '0') { // function for colculate index last symbol (del) on the right
  	size_t ind = val.size();
  	std::string res = val;
