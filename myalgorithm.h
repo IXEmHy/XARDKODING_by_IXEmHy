@@ -331,5 +331,146 @@ std::string translit(const std::string& str, const int& from, const int& to) {
 		res[i] = find != str.npos ? layout[to][find] : res[i];
 	}
 	return res;
+}//  TODO  //
+ size_t ind_n(const std::string& val, const int32_t& del = '0') { // function for colculate index last symbol (del) on the right
+ 	size_t ind = val.size();
+ 	std::string res = val;
+ 	for(size_t i{}; 
+            	i < res.size() && res.at(res.size()-i-1) == '0'; 
+            	++i, --ind) ;
+	  return ind;
+}
+	    
+template<class T,
+                std::enable_if_t<std::is_integral<std::remove_reference_t<T>>::value, bool> = true> 
+std::string convert(T&& value, const uint8_t& m) { // Function for translate integer number into another system number
+    if(m != 10) {
+        auto temp = abs(value); // abs(value) because value % m, where value is negative number will heve the negative meaning. For example: -10 % 3 == -1. 
+        std::vector<std::pair<std::string, uint8_t>> prefix = {{"0b", 2}, {"0o", 8}, {"", 10}, {"0x", 16}}; // Need for buity. 
+    	std::string res;
+        
+	    do {
+	    	res += (temp % m < 10 ? 
+	    	        temp % m + '0' // if temp % m < 10, add into res temp % m + '0'.Its mean that temp % m < 10 and need to sum with '0' to get the number of this symbol. For examle: 17 % 10 + '0' == '7'
+	    	        : temp % m + 55); // Else add into res symbol == temp % m + 55. For example: 15 % 16 + 55 == 'A'
+	    	temp /= m;
+	    } while (temp > 0);
+
+	    std::reverse(res.begin(), res.end()); // reverse result.For example: 010101 to 101010
+	    
+	    auto it = std::find_if(_ve(prefix), [&](std::pair<std::string, uint8_t>& p) { return p.second == m; }); // Find in prefix the pair, which has the second element == m. For example: m == 2. It will have the meaning, which == prefix.begin()
+	    res.insert(0, (it != prefix.end() ? it->first : "")); // insert prefix. For example: before: 1A after 0x1A (if m == 16)
+	    
+	    if (value < 0) // if value was negative (-10) add in the begin result symbol "-"
+	        res.insert(it != prefix.end() ? 2 : 0, "-"); /*if it != prefix.end(), add "-" in 2 index.
+	        Else put it in 0 index.
+	        For example: res == "0x10", and value == -16. Result of this call method will be: res == "0x-10".
+	                     res == "10", and value == -15. Result of this call method will be: res == "-10". */
+	    return res;
+    } 
+	return std::to_string(value);
+}
+
+template<class T,
+                std::enable_if_t<std::is_arithmetic<std::remove_reference_t<T>>::value && !std::is_integral<std::remove_reference_t<T>>::value, bool> = true> 
+std::string convert(T&& value, const uint8_t& m) { // Function for translate floating number into another system number.
+	if(m != 10) {
+		auto val = int64_t(value);
+	    using float_b = std::is_same<std::remove_reference_t<T>, float>; // if T is "float" type
+	    typename std::conditional<float_b::value, float, long double>::type res_float_part = abs(value) - abs(val); // if T is "float" type to declare variable type based on float_b value
+	    
+		size_t cex = float_b::value ? 6 : 15; // rounding precision
+		std::string res;
+		for(size_t i{}; i < cex && res_float_part != int64_t(res_float_part); ++i) {
+			res += std::to_string(int64_t(res_float_part * m)); // 0.6 * 2 == 1.2. int64_t(1.0) convert.to string and add into res
+			res_float_part = res_float_part * m - int64_t(res_float_part * m); // 1.2 - 1 == 0.2
+		}
+      	res.erase(ind_n(res)); // delete all the '0' at the end of res. For example: res == "0.980000", will delete 4 zero, and res wil become == "0.98"
+      	
+	    std::reverse(_ve(res));
+    	res.insert(0, convert(val, m) + (ind_n(res) ? "." : "")); // add "." if ind_n(res) == 0
+        
+        return res; 
+	}
+	
+	std::string res = std::to_string(value);
+	res.erase(ind_n(res), res.size());
+    return res; 
+}
+
+std::string convert(const uint8_t& n, const std::string& value, const uint8_t& m) { // Function to translete number from one number system into another system number
+	int64_t res = 0;
+	std::vector<std::pair<std::string, uint8_t>> vec = {{"0b", 2}, {"0o", 8}, {"", 10}, {"0x", 16}};
+
+    std::string val = std::string(value.begin(), std::find(_ve(value), '.')); // erase integer number from value. For example: "14646.97" val became "14646"
+	if (std::find_if(_ve(vec), [&](std::pair<std::string, uint8_t>& p) { return p.second == n; }) != vec.end())
+	    val.erase(0, 2); // erase prefix 
+	    
+	if(val.at(0) == '-') val.erase(0, 1); 
+	
+	for (size_t i = 0; i < val.size(); i++)
+	    res = res * n + val.at(i) - (val.at(i) - '0' < 10 ? '0' : 55);
+	 
+	res = value.at(2) == '-' ? -res : res;
+	if(value.find('.') != value.npos) { // if value has '.' it means that value is floating number, and need translate its floating part into m-system number
+		std::string float_part = std::string(std::find(_ve(value), '.') + 1, value.back() != 'f' ? value.end() : value.end()-1);
+		long double res2{}; 
+		
+		for(int i{-1}; abs(i) < 16 && abs(i) < float_part.size() + 1; --i) { 
+			char temp2 = float_part.at(abs(i) - 1);
+			res2 += (temp2 - (temp2 - '0' < 10 ? '0' : 55)) * pow(n, i);
+		}
+		
+		std::string templ = std::to_string(value.back() != 'f' ? res2 : float(res2));
+		templ.erase(0, 1); // erase first symbol beacuse it's '0' and it doesn't need
+		return convert(stod(std::to_string(res) + templ), m); // convert res + templ into m-system number
+	} 
+	else
+    	return convert(res, m);
+
+}
+
+class NumberSystemClassMoreCondition {
+	string val;
+	size_t num_sys_our = 10;
+public:
+    template<class U,
+             std::enable_if_t<std::is_arithmetic<U>::value, bool> = true>
+	NumberSystemClassMoreCondition(U&& u) {
+		val = std::to_string(std::forward<U>(u));
+	}
+
+    NumberSystemClassMoreCondition(const std::string& another, size_t num_sys = 10) : val(another), num_sys_our(num_sys) {}
+    
+    std::string operator()(size_t num_sys) {
+    	return std::string(val +
+    	" is in a " + std::to_string(num_sys_our) +
+    	"-number system.\nAnd it's also " +
+    	convert(num_sys_our, val, num_sys) +
+    	" in a " + std::to_string(num_sys) + "-number system");
+    }
+     
+    NumberSystemClassMoreCondition& operator=(int64_t num_sys) {
+    	val = convert(num_sys_our, val, num_sys);
+    	return *this;
+    }
+    
+    void set(const std::string& vall, size_t num_sys) {
+    	val = vall;
+    	num_sys_our = num_sys;
+    	
+    }
+     
+    friend std::ostream& operator<<(std::ostream& os, const NumberSystemClassMoreCondition& obj) {
+    	os << obj.val << " in a " << obj.num_sys_our << "-system number";
+    	return os;
+    }
+};
+
+using SystemNumber = NumberSystemClassMoreCondition;
+ 
+
+double log(double a, double val) {
+	return log(val) / log(a);
 }
 #endif
